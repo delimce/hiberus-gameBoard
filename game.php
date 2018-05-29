@@ -1,10 +1,16 @@
+<?php
+
+require_once("./game/GameBoard.php");
+$board = new GameBoard();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Juego: 3 en Linea</title>
+        <title>Juego: Tres en raya</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="./css/styles.css">
@@ -14,37 +20,7 @@
             <div>
                 <div id="dashboard">
 
-                    <div class="cell cell-11">
-                        X
-                    </div>
-
-                     <div class="cell cell-11">
-                         O
-                     </div>
-
-                      <div class="cell cell-13">
-                          O
-                       </div>
-
-                        <div class="cell cell-11">
-                       </div>
-
-                        <div class="cell cell-11">
-                       </div>
-
-                        <div class="cell cell-13">
-                       </div>
-
-                       <div class="cell cell-31">
-                       </div>
-
-                        <div class="cell cell-31">
-                       </div>
-
-                        <div class="cell">
-                       </div>
-
-
+                   <?php $board->drawBoard(); ?>
 
                 </div>             
             </div>
