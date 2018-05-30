@@ -16,11 +16,17 @@ switch ($action) {
         $db->setTable("tbl_player_game");
         $db->setField("line",$row);
         $db->setField("col",$column);
-        $db->setField("player_id",$player);
+        $db->setField("player",$player);
         $db->insertInTo();
 
-        
+        break;
 
+
+        case 'restart':
+
+        $db->setTable("tbl_player_game");
+        $db->deleteWhere("id>0");
+        
         break;
 
 }

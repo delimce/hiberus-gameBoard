@@ -1,6 +1,8 @@
 <?php
 
-require_once("./game/GameBoard.php");
+include './utils/dbconfig.php';
+include './utils/class/classes.php';
+
 $board = new GameBoard();
 
 ?>
@@ -18,37 +20,76 @@ $board = new GameBoard();
     <body class="container">
       
             <div>
-                <div id="dashboard">
-
+                <div id="board">
                    <?php $board->drawBoard(); ?>
-
+                </div>
+                <div>
+                    Numero de jugadas:<?= $board->getNplays() ?>
                 </div>             
             </div>
+
+
+<div id="restart" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" style="padding:25px">
+        Caramba! EL juego ha quedado empatado, volver a jugar?<br><br>
+        <button id="resetGame" type="button" class="btn btn-primary">Reiniciar Juego</button>
+
+    </div>
+  </div>
+</div>
+
+            
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
 
+
+$(function() {
+
+
+        if(<?=$board->getNplays() ?>==9){
+            $('#restart').modal('show');
+        }
+
         $('.next-play').on('click',function(){
 
-         var row = $(this).data('row');
-         var column = $(this).data('column');
-         var player = $(this).data('player');
-         var data = {'row':row,'column':column, 'player':player, 'action':'play'}
+        var row = $(this).data('row');
+        var column = $(this).data('column');
+        var player = $(this).data('player');
+        var data = {'row':row,'column':column, 'player':player, 'action':'play'}
 
-         $.ajax({
+        $.ajax({
+        url: "./game/operations.php",
+        type: 'post',
+        data: data
+        }).done(function (html) {
+            location.reload(); 
+        }).fail(function (error) {
+        console.log(error);
+        });
+    })
+
+
+     $('#resetGame').on('click',function(){
+
+          var data = {'action':'restart'}
+
+            $.ajax({
             url: "./game/operations.php",
             type: 'post',
             data: data
-        }).done(function (html) {
-            console.log(html)
-        }).fail(function (error) {
+            }).done(function (html) {
+                location.reload(); 
+            }).fail(function (error) {
             console.log(error);
-        });
-
-
+            });
         })
 
+    });
 
+
+   
 
 
     </script>

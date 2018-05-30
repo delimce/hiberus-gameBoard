@@ -1,17 +1,14 @@
 <?php
 
-include './utils/dbconfig.php';
-include './utils/class/classes.php';
-
 class GameBoard
 {
-
     private $rows = 3;
     private $columns = 3;
     private $player1 = X;
     private $player2 = O;
     private $borders = array(11, 11, 13, 11, 11, 13, 31, 31, 0);
     private $plays;
+    private $nplays;
 
     function __construct()
     { ///constructor
@@ -22,6 +19,7 @@ class GameBoard
     {
 
         $this->plays = $this->getPlays();
+        $player = $this->getPlayerTurn();
         $z = 0;
 
         for ($i = 0; $i < $this->rows; $i++) {
@@ -37,7 +35,7 @@ class GameBoard
                      title='Jugar aqui!'
                      data-row='$row'
                      data-column='$column'
-                     data-player='1'>&nbsp</span>";
+                     data-player='$player'>&nbsp</span>";
                 }else{
                     print $play;
                 }
@@ -54,26 +52,25 @@ class GameBoard
         $db->setSql("SELECT
         pg.`line`,
         pg.`col`,
-        pg.play,
-        p.number
+        pg.player
         FROM
         tbl_player_game AS pg
-        INNER JOIN tbl_player AS p ON pg.player_id = p.id
         order by pg.line,pg.col");
         $plays = $db->getMatrixDb();
+        ///numero de jugadas hechas
+        $this->nplays = count($plays);
         $db->cerrar();
         return $plays;
     }
 
     private function findPlay($row, $column)
     {
-
         $isPlay = false;
         if(count($this->plays)>0){
             foreach($this->plays as $item){
 
                 if ($item["line"] == $row && $item["col"] == $column) {
-                    $isPlay = ($item["number"] == 1) ? $this->player1 : $this->player2;
+                    $isPlay = ($item["player"] == 1) ? $this->player1 : $this->player2;
                     break;
                 }
     
@@ -82,6 +79,22 @@ class GameBoard
         return $isPlay;
 
     }
+
+    public function getPlayerTurn(){
+
+        $db = new ObjectDB();
+        $db->setSql("select player from tbl_player_game order by id desc limit 1");
+        $db->getResultFields();
+        $player = $db->getField("player");
+        return ($player==1)?2:1;
+
+    }
+
+
+    public function getNplays(){
+        return $this->nplays;
+    }
+
 
 }
 
