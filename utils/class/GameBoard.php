@@ -110,6 +110,11 @@ class GameBoard
         return $this->nplays;
     }
 
+    
+    public function getWinner(){
+        return ($this->last_player == 1) ? $this->player1 : $this->player2;
+    }
+
 
     public function findingWinner()
     {

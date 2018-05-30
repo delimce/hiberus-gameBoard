@@ -48,7 +48,7 @@ $board = new GameBoard();
 <div id="winner" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content" style="padding:25px">
-        <h1>Felicitaciones Jugador <?php $board->getLastPlayer() ?></h1>
+        <h1>Felicitaciones Jugador <?= $board->getWinner()?></h1>
         <p><b>Has ganado el Encuentro!</b></p>
         <button type="button" class="btn btn-primary resetGame">Reiniciar Juego</button>
 
