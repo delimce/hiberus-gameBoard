@@ -19,15 +19,15 @@ switch ($action) {
         $db->setField("player",$player);
         $db->insertInTo();
 
-        break;
+    break;
 
 
-        case 'restart':
+    case 'restart':
 
         $db->setTable("tbl_player_game");
         $db->deleteWhere("id>0");
         
-        break;
+    break;
 
 }
 

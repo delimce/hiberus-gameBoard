@@ -9,18 +9,19 @@ class GameBoard
     private $borders = array(11, 11, 13, 11, 11, 13, 31, 31, 0);
     private $plays;
     private $nplays;
+    private $ready_player;
 
     function __construct()
     { ///constructor
-
+        $this->plays = $this->getPlays();
+        $player = $this->getPlayerTurn();
     }
 
     public function drawBoard()
     {
-
-        $this->plays = $this->getPlays();
-        $player = $this->getPlayerTurn();
         $z = 0;
+
+        $player = $this->ready_player;
 
         for ($i = 0; $i < $this->rows; $i++) {
             for ($j = 0; $j < $this->columns; $j++) {
@@ -73,7 +74,6 @@ class GameBoard
                     $isPlay = ($item["player"] == 1) ? $this->player1 : $this->player2;
                     break;
                 }
-    
             }
         }
         return $isPlay;
@@ -86,8 +86,13 @@ class GameBoard
         $db->setSql("select player from tbl_player_game order by id desc limit 1");
         $db->getResultFields();
         $player = $db->getField("player");
-        return ($player==1)?2:1;
+        $this->ready_player = ($player==1)?2:1;
+        return $this->ready_player;
 
+    }
+
+    public function getPlayer(){
+        return ($this->ready_player==1)?$this->player1:$this->player2;
     }
 
 

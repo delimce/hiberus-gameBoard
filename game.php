@@ -18,8 +18,14 @@ $board = new GameBoard();
         <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body class="container">
-      
+            
             <div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Turno del Jugador: <?= $board->getPlayer() ?>
+                    </div>
+                </div>    
+
                 <div id="board">
                    <?php $board->drawBoard(); ?>
                 </div>
@@ -27,7 +33,6 @@ $board = new GameBoard();
                     Numero de jugadas:<?= $board->getNplays() ?>
                 </div>             
             </div>
-
 
 <div id="restart" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
@@ -72,9 +77,7 @@ $(function() {
 
 
      $('#resetGame').on('click',function(){
-
           var data = {'action':'restart'}
-
             $.ajax({
             url: "./game/operations.php",
             type: 'post',
@@ -87,9 +90,6 @@ $(function() {
         })
 
     });
-
-
-   
 
 
     </script>
