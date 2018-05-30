@@ -38,7 +38,7 @@ $board = new GameBoard();
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content" style="padding:25px">
         Caramba! EL juego ha quedado empatado, volver a jugar?<br><br>
-        <button id="resetGame" type="button" class="btn btn-primary">Reiniciar Juego</button>
+        <button type="button" class="btn btn-primary resetGame">Reiniciar Juego</button>
 
     </div>
   </div>
@@ -50,7 +50,7 @@ $board = new GameBoard();
     <div class="modal-content" style="padding:25px">
         <h1>Felicitaciones Jugador <?php $board->getLastPlayer() ?></h1>
         <p><b>Has ganado el Encuentro!</b></p>
-        <button id="resetGame" type="button" class="btn btn-primary">Reiniciar Juego</button>
+        <button type="button" class="btn btn-primary resetGame">Reiniciar Juego</button>
 
     </div>
   </div>
@@ -65,6 +65,8 @@ $(function() {
 
        if(<?=$board->getNplays() ?>==9){
             $('#restart').modal('show');
+        }else if(<?=$board->findingWinner() ?>>0){
+            $('#winner').modal('show');  
         }
 
         $('.next-play').on('click',function(){
@@ -86,7 +88,7 @@ $(function() {
     })
 
 
-     $('#resetGame').on('click',function(){
+     $('.resetGame').on('click',function(){
           var data = {'action':'restart'}
             $.ajax({
             url: "./game/operations.php",

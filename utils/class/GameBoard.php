@@ -113,8 +113,9 @@ class GameBoard
 
     public function findingWinner()
     {
-        if (count($this->plays) == 0) return false;
+        if (count($this->plays) == 0) return 0;
 
+        $winner = 0;
         $player = $this->last_player;
         $contR1 = 0;
         $contR2 = 0;
@@ -150,7 +151,9 @@ class GameBoard
         if ($contR1 == 3 || $contR2 == 3 || $contR3 == 3 
         || $contC1 == 3  || $contC2 == 3 || $contC3 == 3 
         || $contD1 == 3  || $contD2 == 3)
-            print "$player WON!";
+            $winner = $player;
+
+        return $winner;
 
     }
 
