@@ -44,7 +44,18 @@ $board = new GameBoard();
   </div>
 </div>
 
-            
+
+<div id="winner" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" style="padding:25px">
+        <h1>Felicitaciones Jugador <?php $board->getLastPlayer() ?></h1>
+        <p><b>Has ganado el Encuentro!</b></p>
+        <button id="resetGame" type="button" class="btn btn-primary">Reiniciar Juego</button>
+
+    </div>
+  </div>
+</div>
+     
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
@@ -52,8 +63,7 @@ $board = new GameBoard();
 
 $(function() {
 
-
-        if(<?=$board->getNplays() ?>==9){
+       if(<?=$board->getNplays() ?>==9){
             $('#restart').modal('show');
         }
 

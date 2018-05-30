@@ -22,11 +22,11 @@ form{
     margin: auto;
     width: 450px;
     height: 450px;
-    background-color: fff;
+    background-color: #fff;
 }
 
 .panel-body{
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
 }
 
@@ -51,10 +51,10 @@ form{
     margin: auto;
 }
 
-.next-play{
+.next-play span{
     width: 80%;
+    height: 100px;
 }
-
 
 .play-me{
     background-color: #fff;
