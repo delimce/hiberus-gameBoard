@@ -19,7 +19,7 @@ $board = new GameBoard();
     </head>
     <body class="container">
             
-            <div>
+            <div class="new-panel">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         Turno del Jugador: <?= $board->getPlayer() ?>
@@ -29,7 +29,7 @@ $board = new GameBoard();
                 <div id="board">
                    <?php $board->drawBoard(); ?>
                 </div>
-                <div>
+                <div class="n-plays">
                     Numero de jugadas:<?= $board->getNplays() ?>
                 </div>             
             </div>

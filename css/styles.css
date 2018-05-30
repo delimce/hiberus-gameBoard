@@ -25,6 +25,21 @@ form{
     background-color: fff;
 }
 
+.panel-body{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.new-panel{
+    max-width: 600px;
+    margin: auto;
+}
+
+.n-plays{
+    padding-top: 30px;
+    margin-left: 100px;
+}
+
 .cell{
     width: 150px;
     height: 150px;
