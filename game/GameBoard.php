@@ -1,7 +1,7 @@
 <?php
 
-require_once './utils/dbconfig.php';
-require_once './utils/class/classes.php';
+include './utils/dbconfig.php';
+include './utils/class/classes.php';
 
 class GameBoard
 {
@@ -26,8 +26,21 @@ class GameBoard
 
         for ($i = 0; $i < $this->rows; $i++) {
             for ($j = 0; $j < $this->columns; $j++) {
-                print '<div class="cell cell-' . $this->borders[$z] . '">';
-                print $this->findPlay($i + 1, $j + 1);
+                $row = $i + 1;
+                $column = $j + 1;
+                $play = $this->findPlay($row,$column);
+                $style = (!$play)?'play-me':'';
+                print '<div class="cell cell-' . $this->borders[$z] . ' '.$style.'">';
+                if(!$play){
+                    print "<span
+                     class='next-play' 
+                     title='Jugar aqui!'
+                     data-row='$row'
+                     data-column='$column'
+                     data-player='1'>&nbsp</span>";
+                }else{
+                    print $play;
+                }
                 print '</div>';
                 $z++;
 
@@ -35,19 +48,18 @@ class GameBoard
         }
     }
 
-
     private function getPlays()
     {
         $db = new ObjectDB();
         $db->setSql("SELECT
-        pg.`row`,
-        pg.`column`,
+        pg.`line`,
+        pg.`col`,
         pg.play,
         p.number
         FROM
         tbl_player_game AS pg
         INNER JOIN tbl_player AS p ON pg.player_id = p.id
-        order by pg.row,pg.column");
+        order by pg.line,pg.col");
         $plays = $db->getMatrixDb();
         $db->cerrar();
         return $plays;
@@ -56,19 +68,20 @@ class GameBoard
     private function findPlay($row, $column)
     {
 
-        if (count($this->plays) > 0) {
+        $isPlay = false;
+        if(count($this->plays)>0){
+            foreach($this->plays as $item){
 
-            array_filter($this->plays, function ($item) use ($row, $column) {
-
-                if ($item["row"] == $row && $item["column"] == $column) {
-                    print($item["number"] == 1) ? $this->player1 : $this->player2;
+                if ($item["line"] == $row && $item["col"] == $column) {
+                    $isPlay = ($item["number"] == 1) ? $this->player1 : $this->player2;
+                    break;
                 }
-
-            });
+    
+            }
         }
+        return $isPlay;
 
     }
-
 
 }
 

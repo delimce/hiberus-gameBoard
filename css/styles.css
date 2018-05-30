@@ -29,7 +29,6 @@ form{
     width: 150px;
     height: 150px;
     float: left;
-    background-color: #fff;
     text-align: center;
     padding-top: 36px;
     font-size: 50px;
@@ -37,7 +36,15 @@ form{
     margin: auto;
 }
 
-.cell:hover {
+.next-play{
+    width: 80%;
+}
+
+
+.play-me{
+    background-color: #fff;
+}
+.play-me:hover {
     background-color:whitesmoke;
     cursor: pointer;
    } 

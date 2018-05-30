@@ -26,5 +26,31 @@ $board = new GameBoard();
             </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+
+        $('.next-play').on('click',function(){
+
+         var row = $(this).data('row');
+         var column = $(this).data('column');
+         var player = $(this).data('player');
+         var data = {'row':row,'column':column, 'player':player, 'action':'play'}
+
+         $.ajax({
+            url: "./game/operations.php",
+            type: 'post',
+            data: data
+        }).done(function (html) {
+            console.log(html)
+        }).fail(function (error) {
+            console.log(error);
+        });
+
+
+        })
+
+
+
+
+    </script>
     </body>
 </html>
